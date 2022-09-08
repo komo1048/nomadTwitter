@@ -6,10 +6,10 @@ import Navigation from "./Navigation";
 import Profile from "../routes/Profile";
 import { Redirect } from "react-router-dom";
 
-const AppRouter = ({ isLoggedIn, userObj }) => {
+const AppRouter = ({ isLoggedIn, userObj, refreshUser }) => {
   return (
     <Router>
-      {isLoggedIn && <Navigation />}
+      {isLoggedIn && <Navigation userObj={userObj} />}
       <Switch>
         {isLoggedIn ? (
           <>
@@ -17,7 +17,7 @@ const AppRouter = ({ isLoggedIn, userObj }) => {
               <Home userObj={userObj} />
             </Route>
             <Route exact path="/profile">
-              <Profile />
+              <Profile refreshUser={refreshUser} userObj={userObj} />
             </Route>
             <Redirect from="*" to="/" />
           </>
