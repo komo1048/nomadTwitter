@@ -1,20 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { authService, dbService } from "../fBase";
+import React, { useState } from "react";
+import { authService } from "../fBase";
 
 const Profile = ({ userObj, refreshUser }) => {
-  const onLogOutClick = () => authService.signOut();
-  const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
-
-  const getMyNweets = async () => {
-    const nweets = await dbService
-      .collection("nweets")
-      .where("creatorId", "==", userObj.uid)
-      .orderBy("createdAt", "desc")
-      .get();
+  const onLogOutClick = () => {
+    authService.signOut();
   };
-  useEffect(() => {
-    getMyNweets();
-  });
+  const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
 
   const onSubmit = async (event) => {
     event.preventDefault();
